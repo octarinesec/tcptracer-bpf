@@ -15,7 +15,7 @@ import (
 	"time"
 	"unsafe"
 
-	"github.com/iovisor/gobpf/elf"
+	"github.com/octarinesec/gobpf/elf"
 )
 
 /*

@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"unsafe"
 
-	bpflib "github.com/iovisor/gobpf/elf"
+	bpflib "github.com/octarinesec/gobpf/elf"
 )
 
 type Tracer struct {

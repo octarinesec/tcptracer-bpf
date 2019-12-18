@@ -5,7 +5,7 @@ package tracer
 import (
 	"fmt"
 
-	"github.com/iovisor/gobpf/elf"
+	"github.com/octarinesec/gobpf/elf"
 )
 
 func guess(b *elf.Module) error {
