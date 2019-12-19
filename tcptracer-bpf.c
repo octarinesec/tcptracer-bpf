@@ -19,6 +19,11 @@
 #include <net/inet_sock.h>
 #include <net/net_namespace.h>
 
+#define printt(fmt, ...)                                                   \
+        ({                                                                 \
+                static char ____fmt[] SEC("maps/strings") = fmt;                  \
+                bpf_trace_printk(____fmt, sizeof(____fmt), ##__VA_ARGS__); \
+        })
 /* This is a key/value store with the keys being the cpu number
  * and the values being a perf file descriptor.
  */
@@ -801,7 +806,7 @@ int kretprobe__inet_csk_accept(struct pt_regs *ctx)
 	bpf_probe_read(&skc_net, sizeof(possible_net_t *), ((char *)newsk) + status->offset_netns);
 	bpf_probe_read(&net_ns_inum, sizeof(net_ns_inum), ((char *)skc_net) + status->offset_ino);
 
-    bpf_trace_printk("Got accept AF_INET=%d, lport %d, dport %d", check_family(newsk, AF_INET), lport, dport);
+    printt("%x %x %x\n", check_family(newsk, AF_INET), lport, dport);
 
 	if (check_family(newsk, AF_INET)) {
 		struct tcp_ipv4_event_t evt = {
